@@ -76,6 +76,10 @@
             android:label="@string/title_home"
             android:theme="@style/AppTheme">
         </activity>
+        <activity
+            android:name=".ui.transaction.CartActivity"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>

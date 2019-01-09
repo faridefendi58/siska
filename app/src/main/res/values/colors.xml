@@ -364,4 +364,15 @@
         <item type="color">#607d8b</item>
         <item type="color">#ff9800</item>
     </array>
+
+    <color name="buttonBackgroundColor">@color/colorAccent</color>
+    <color name="buttonBackgroundColorDark">#16a085</color>
+
+    <color name="textColor">#DB000000</color>
+    <color name="secondaryTextColor">#80000000</color>
+    <color name="textColorLight">#80626262</color>
+    <color name="textColorGreen">#10c203</color>
+    <color name="darkColorGreen">#0d9902</color>
+    <color name="textColorRed">#f94f4f</color>
+
 </resources>

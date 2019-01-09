@@ -127,4 +127,15 @@ public class Product {
 
 		return stock;
 	}
+
+	public int getStock(int id) {
+		int stock = 0;
+		try {
+			stock = Inventory.getInstance().getStock().getStockSumById(id);
+		} catch (NoDaoSetException e) {
+			e.printStackTrace();
+		}
+
+		return stock;
+	}
 }

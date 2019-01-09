@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,33 +15,50 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.slightsite.siskapos.R;
+import com.slightsite.siskapos.domain.inventory.Inventory;
+import com.slightsite.siskapos.domain.inventory.Product;
+import com.slightsite.siskapos.domain.inventory.ProductCatalog;
 import com.slightsite.siskapos.domain.params.ParamCatalog;
 import com.slightsite.siskapos.domain.params.ParamService;
+import com.slightsite.siskapos.domain.sale.Register;
 import com.slightsite.siskapos.technicalservices.NoDaoSetException;
 import com.slightsite.siskapos.domain.transaction.ProductCategory;
 import com.slightsite.siskapos.ui.LoginActivity;
 import com.slightsite.siskapos.ui.MainActivity;
+import com.slightsite.siskapos.ui.component.ButtonAdapter;
 import com.slightsite.siskapos.ui.profile.ProfileActivity;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class TransactionActivity extends AppCompatActivity {
 
     private View parent_view;
 
     private RecyclerView recyclerView;
-    private AdapterListCategory mAdapter;
+    private AdapterListProduct mAdapter;
 
     private ActionBar actionBar;
     private Toolbar toolbar;
 
     private ParamCatalog paramCatalog;
+
+    public final static String TAG = "TransactionActivity";
+    private ProductCatalog productCatalog;
+    private Register register;
+
+    private TextView textCartItemCount;
+    private int mCartItemCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,16 +96,23 @@ public class TransactionActivity extends AppCompatActivity {
         recyclerView.setNestedScrollingEnabled(false);
 
         List<ProductCategory> items = DataGenerator.getShoppingCategory(this);
+        try {
+            productCatalog = Inventory.getInstance().getProductCatalog();
+            register = Register.getInstance();
+        } catch (NoDaoSetException e) {
+            e.printStackTrace();
+        }
 
         //set data and list adapter
-        mAdapter = new AdapterListCategory(this, items);
+        mAdapter = new AdapterListProduct(this, productCatalog.getAllProduct());
         recyclerView.setAdapter(mAdapter);
 
-        // on item list clicked
-        mAdapter.setOnItemClickListener(new AdapterListCategory.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new AdapterListProduct.OnItemClickListener() {
             @Override
-            public void onItemClick(View view, ProductCategory obj, int position) {
-                Snackbar.make(parent_view, "Item " + obj.title + " clicked", Snackbar.LENGTH_SHORT).show();
+            public void onItemClick(View view, Product obj, int position) {
+                register.addItem(productCatalog.getProductById(obj.getId()), 1);
+                setupBadge();
+                Snackbar.make(parent_view, obj.getName() + " added to cart.", Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -99,14 +124,35 @@ public class TransactionActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_cart_setting, menu);
+        //getMenuInflater().inflate(R.menu.menu_cart_setting, menu);
+        getMenuInflater().inflate(R.menu.menu_cart_badged, menu);
+
+        final MenuItem menuItem = menu.findItem(R.id.action_cart);
+
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
         if (item.getItemId() == android.R.id.home) {
             finish();
+        } else if (item.getItemId() == R.id.action_cart) {
+            intent = new Intent(getApplicationContext(), CartActivity.class);
+            finish();
+            startActivity(intent);
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }
@@ -183,5 +229,24 @@ public class TransactionActivity extends AppCompatActivity {
         //drawer.openDrawer(GravityCompat.START);
     }
 
+    private void setupBadge() {
+        try {
+            mCartItemCount = register.getCurrentSale().getOrders();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
 }
 

@@ -23,7 +23,9 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.slightsite.siskapos.R;
+import com.slightsite.siskapos.domain.CurrencyController;
 import com.slightsite.siskapos.domain.inventory.Inventory;
 import com.slightsite.siskapos.domain.inventory.Product;
 import com.slightsite.siskapos.domain.inventory.ProductCatalog;
@@ -59,6 +61,11 @@ public class TransactionActivity extends AppCompatActivity {
 
     private TextView textCartItemCount;
     private int mCartItemCount = 0;
+    private TextView cart_subtotal;
+    private MaterialRippleLayout bottom_cart;
+    private TextView tot_cart_item;
+
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +123,19 @@ public class TransactionActivity extends AppCompatActivity {
             }
         });
 
+        cart_subtotal = (TextView) findViewById(R.id.cart_subtotal);
+        bottom_cart = (MaterialRippleLayout) findViewById(R.id.bottom_cart);
+
+        bottom_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intent = new Intent(getApplicationContext(), CartActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
+
+        tot_cart_item = (TextView) findViewById(R.id.tot_cart_item);
     }
 
     public void onButtonTabClick(View v) {
@@ -146,7 +166,6 @@ public class TransactionActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
         if (item.getItemId() == android.R.id.home) {
             finish();
         } else if (item.getItemId() == R.id.action_cart) {
@@ -244,6 +263,11 @@ public class TransactionActivity extends AppCompatActivity {
                 textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
                 if (textCartItemCount.getVisibility() != View.VISIBLE) {
                     textCartItemCount.setVisibility(View.VISIBLE);
+                }
+                if (register.hasSale()) {
+                    bottom_cart.setVisibility(View.VISIBLE);
+                    cart_subtotal.setText("Order Subtotal "+ CurrencyController.getInstance().moneyFormat(register.getTotal()));
+                    tot_cart_item.setText(String.valueOf(Math.min(mCartItemCount, 99)));
                 }
             }
         }

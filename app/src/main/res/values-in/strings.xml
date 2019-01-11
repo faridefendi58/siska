@@ -192,5 +192,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="hold">Tunda</string>
+    <string name="proceed_to_checkout">Lanjut Ke Pembayaran</string>
 
 </resources>

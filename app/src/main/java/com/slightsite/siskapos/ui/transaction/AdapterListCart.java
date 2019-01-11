@@ -6,13 +6,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.slightsite.siskapos.R;
 import com.slightsite.siskapos.domain.CurrencyController;
 import com.slightsite.siskapos.domain.inventory.LineItem;
 import com.slightsite.siskapos.domain.inventory.Product;
+import com.slightsite.siskapos.domain.sale.Register;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,8 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
+    private Register register;
+    private TextView cart_total;
 
     public interface OnItemClickListener {
         void onItemClick(View view, LineItem obj, int position);
@@ -31,9 +36,11 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AdapterListCart(Context context, List<LineItem> items) {
+    public AdapterListCart(Context context, List<LineItem> items, Register register, TextView cart_total) {
         this.items = items;
         ctx = context;
+        this.register = register;
+        this.cart_total = cart_total;
     }
 
     public class OriginalViewHolder extends RecyclerView.ViewHolder {
@@ -43,6 +50,8 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextView price_subtotal;
         public TextView quantity;
         public View lyt_parent;
+        public ImageButton add_qty;
+        public ImageButton substract_qty;
 
         public OriginalViewHolder(View v) {
             super(v);
@@ -52,6 +61,8 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
             price_subtotal = (TextView) v.findViewById(R.id.price_subtotal);
             quantity = (TextView) v.findViewById(R.id.quantity);
             lyt_parent = (View) v.findViewById(R.id.lyt_parent);
+            add_qty = (ImageButton) v.findViewById(R.id.add_qty);
+            substract_qty = (ImageButton) v.findViewById(R.id.substract_qty);
         }
     }
 
@@ -67,9 +78,9 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof OriginalViewHolder) {
-            OriginalViewHolder view = (OriginalViewHolder) holder;
+            final OriginalViewHolder view = (OriginalViewHolder) holder;
 
-            LineItem p = items.get(position);
+            final LineItem p = items.get(position);
             view.title.setText(p.getProduct().getName());
             int qty = 1;
             double prc = 0.0;
@@ -93,11 +104,88 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
             });
+
+            view.add_qty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int current_qty = 0;
+                    try {
+                        current_qty = Integer.parseInt(view.quantity.getText().toString());
+                    } catch (Exception e) {
+                        Log.e(this.getClass().getSimpleName(), e.getMessage());
+                    }
+                    current_qty = current_qty + 1;
+                    view.quantity.setText(""+ current_qty);
+                    try {
+                        updateQty(p, current_qty, p.getPriceAtSale(), view);
+                    } catch (Exception e) {
+                        Log.e(getClass().getSimpleName(), e.getMessage());
+                    }
+                }
+            });
+
+            view.substract_qty.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int current_qty = 1;
+                    try {
+                        current_qty = Integer.parseInt(view.quantity.getText().toString());
+                    } catch (Exception e) {
+                        Log.e(this.getClass().getSimpleName(), e.getMessage());
+                    }
+                    if (current_qty > 1) {
+                        current_qty = current_qty - 1;
+                        view.quantity.setText(""+ current_qty);
+                        try {
+                            updateQty(p, current_qty, p.getPriceAtSale(), view);
+                        } catch (Exception e) {
+                            Log.e(getClass().getSimpleName(), e.getMessage());
+                        }
+                    }
+                }
+            });
         }
     }
 
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    private void updateQty(LineItem lineItem, int qty, Double price, OriginalViewHolder view) {
+        lineItem.setQuantity(qty);
+        Double grosir_price = lineItem.getProduct().getUnitPriceByQuantity(lineItem.getProduct().getId(), qty);
+        Log.e(getClass().getSimpleName(), "Product name : "+ lineItem.getProduct().getName());
+        Log.e(getClass().getSimpleName(), "Product id : "+ lineItem.getProduct().getId());
+        Log.e(getClass().getSimpleName(), "grosir_price : "+ grosir_price);
+        Log.e(getClass().getSimpleName(), "line id : "+ lineItem.getId());
+        //int saleId = register.getCurrentSale().getId();
+        int saleId = lineItem.getId();
+        Log.e(getClass().getSimpleName(), "saleId : "+ saleId);
+        if (grosir_price > 0) {
+            register.updateItem(
+                    saleId,
+                    lineItem,
+                    qty,
+                    grosir_price
+            );
+
+            double sub_total = grosir_price * qty;
+            view.price.setText("@ "+ CurrencyController.getInstance().moneyFormat(grosir_price));
+            view.price_subtotal.setText(CurrencyController.getInstance().moneyFormat(sub_total));
+        } else {
+            register.updateItem(
+                    saleId,
+                    lineItem,
+                    qty,
+                    price
+            );
+
+            double sub_total = price * qty;
+            view.price.setText("@ "+ CurrencyController.getInstance().moneyFormat(price));
+            view.price_subtotal.setText(CurrencyController.getInstance().moneyFormat(sub_total));
+        }
+
+        cart_total.setText(CurrencyController.getInstance().moneyFormat(register.getTotal()));
     }
 }

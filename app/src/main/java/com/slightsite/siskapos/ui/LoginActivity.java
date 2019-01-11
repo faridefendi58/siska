@@ -346,7 +346,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this, TransactionActivity.class);
                 intent.putExtra(TAG_ID, id);
                 intent.putExtra(TAG_EMAIL, email);
                 finish();

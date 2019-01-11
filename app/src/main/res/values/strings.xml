@@ -198,5 +198,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="hold">Hold</string>
+    <string name="proceed_to_checkout">Proceed To Checkout</string>
 
 </resources>

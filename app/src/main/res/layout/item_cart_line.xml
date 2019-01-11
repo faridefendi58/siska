@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/RippleStyleBlack"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/lyt_parent"
@@ -17,8 +18,8 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/image_shop_2" />
 
@@ -41,10 +42,11 @@
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_xsmall"
                     android:text="Coup Hoodie Jacket"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/grey_90"
+                    android:textSize="14dp"
                     app:fontFamily="sans-serif-medium" />
 
                 <TextView
@@ -53,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:text="Green - M"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/grey_40" />
+                    android:textColor="@color/grey_40"
+                    android:textSize="12dp"/>
 
                 <View
                     android:layout_width="0dp"
@@ -64,10 +67,10 @@
                     android:id="@+id/price_subtotal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xsmall"
                     android:text="$ 89.00"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/light_green_600"
+                    android:textSize="14dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -79,11 +82,12 @@
                 android:orientation="vertical">
 
                 <ImageButton
+                    android:id="@+id/add_qty"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/spacing_xlarge"
+                    android:layout_height="@dimen/spacing_large"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:tint="@color/grey_40"
-                    app:srcCompat="@drawable/ic_add" />
+                    app:srcCompat="@drawable/ic_add"/>
 
                 <TextView
                     android:id="@+id/quantity"
@@ -99,8 +103,9 @@
                     app:fontFamily="sans-serif-medium" />
 
                 <ImageButton
+                    android:id="@+id/substract_qty"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/spacing_xlarge"
+                    android:layout_height="@dimen/spacing_large"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:tint="@color/grey_40"
                     app:srcCompat="@drawable/ic_remove" />
@@ -113,8 +118,9 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/grey_40"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/border_set"
         android:layout_below="@+id/lyt_parent"/>
 
 </LinearLayout>

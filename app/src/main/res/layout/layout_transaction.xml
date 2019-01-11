@@ -184,8 +184,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_middle"
+                android:layout_height="fill_parent"
+                android:layout_margin="@dimen/spacing_small"
                 android:background="@drawable/selector_rect_rounded_corner_blue_bg_blue_stroke"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
@@ -195,7 +195,7 @@
                     android:id="@+id/tot_cart_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/spacing_small"
+                    android:layout_margin="@dimen/spacing_middle"
                     android:paddingEnd="@dimen/spacing_middle"
                     android:paddingStart="@dimen/spacing_middle"
                     android:background="@drawable/selector_rect_rounded_corner_white_bg_white_stroke"
@@ -203,6 +203,16 @@
                     android:textColor="@color/colorAccent"
                     android:textSize="14dp"
                     tools:text="03" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/spacing_middle"
+                    android:text="Item"
+                    android:textColor="@android:color/white"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true" />
 
                 <View
                     android:layout_width="1dp"
@@ -213,9 +223,9 @@
                     android:id="@+id/cart_subtotal"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/spacing_small"
+                    android:layout_margin="@dimen/spacing_middle"
                     android:layout_weight="1"
-                    android:text="Order subtotal"
+                    android:text="Subtotal"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"
                     android:textSize="14dp"

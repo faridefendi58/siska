@@ -266,7 +266,7 @@ public class TransactionActivity extends AppCompatActivity {
                 }
                 if (register.hasSale()) {
                     bottom_cart.setVisibility(View.VISIBLE);
-                    cart_subtotal.setText("Order Subtotal "+ CurrencyController.getInstance().moneyFormat(register.getTotal()));
+                    cart_subtotal.setText("Subtotal "+ CurrencyController.getInstance().moneyFormat(register.getTotal()));
                     tot_cart_item.setText(String.valueOf(Math.min(mCartItemCount, 99)));
                 }
             }

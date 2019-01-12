@@ -1,120 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/RippleStyleBlack"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <include layout="@layout/item_swipe_undo" android:id="@+id/lyt_undo" />
+
+    <com.balysv.materialripple.MaterialRippleLayout
         android:id="@+id/lyt_parent"
+        style="@style/RippleStyleBlack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="@dimen/spacing_middle">
-
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/image_shop_2" />
-
-        <View
-            android:layout_width="@dimen/spacing_middle"
-            android:layout_height="0dp" />
+        android:background="@android:color/white"
+        android:focusable="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/spacing_middle">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/image_shop_2" />
+
+            <View
+                android:layout_width="@dimen/spacing_middle"
+                android:layout_height="0dp" />
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_xsmall"
-                    android:text="Coup Hoodie Jacket"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/grey_90"
-                    android:textSize="14dp"
-                    app:fontFamily="sans-serif-medium" />
-
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Green - M"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                    android:textColor="@color/grey_40"
-                    android:textSize="12dp"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/price_subtotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$ 89.00"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/light_green_600"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/add_qty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/spacing_large"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/grey_40"
-                    app:srcCompat="@drawable/ic_add"/>
-
-                <TextView
-                    android:id="@+id/quantity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="@dimen/spacing_medium"
-                    android:layout_marginTop="@dimen/spacing_medium"
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/grey_90"
-                    app:fontFamily="sans-serif-medium" />
+                    android:orientation="vertical">
 
-                <ImageButton
-                    android:id="@+id/substract_qty"
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_xsmall"
+                        android:text="Coup Hoodie Jacket"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/grey_90"
+                        android:textSize="14dp"
+                        app:fontFamily="sans-serif-medium" />
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Green - M"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/grey_40"
+                        android:textSize="12dp"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/price_subtotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="$ 89.00"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/light_green_600"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/spacing_large"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:tint="@color/grey_40"
-                    app:srcCompat="@drawable/ic_remove" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/add_qty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/spacing_large"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/grey_40"
+                        app:srcCompat="@drawable/ic_add"/>
+
+                    <TextView
+                        android:id="@+id/quantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="@dimen/spacing_medium"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="1"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textColor="@color/grey_90"
+                        app:fontFamily="sans-serif-medium" />
+
+                    <ImageButton
+                        android:id="@+id/substract_qty"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/spacing_large"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:tint="@color/grey_40"
+                        app:srcCompat="@drawable/ic_remove" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </com.balysv.materialripple.MaterialRippleLayout>
 
     <View
         android:layout_width="match_parent"
@@ -123,4 +131,4 @@
         android:background="@drawable/border_set"
         android:layout_below="@+id/lyt_parent"/>
 
-</LinearLayout>
+</RelativeLayout>

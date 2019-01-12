@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,8 @@ public class CartActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private AdapterListCart mAdapter;
+    private ItemTouchHelper mItemTouchHelper;
+
     private Register register;
     private View parent_view;
     private TextView cart_total;
@@ -102,6 +105,10 @@ public class CartActivity extends AppCompatActivity {
                 Snackbar.make(parent_view, obj.getProduct().getName() + " choosen.", Snackbar.LENGTH_SHORT).show();
             }
         });
+
+        ItemTouchHelper.Callback callback = new SwipeItemTouchHelper(mAdapter);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     @Override

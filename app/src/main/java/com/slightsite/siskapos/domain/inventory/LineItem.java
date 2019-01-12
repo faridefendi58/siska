@@ -21,7 +21,10 @@ public class LineItem {
 	private int id;
 	private double unitPriceAtSale;
 	private double unitGrosirPrice;
-	public static boolean multi_level_price = true;
+	public static boolean multi_level_price = false;
+
+	// flag when item swiped
+	public boolean swiped = false;
 
 	/**
 	 * Static value for UNDEFINED ID.

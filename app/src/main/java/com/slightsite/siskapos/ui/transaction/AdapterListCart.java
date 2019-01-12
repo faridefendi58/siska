@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,14 +15,14 @@ import android.widget.Toast;
 import com.slightsite.siskapos.R;
 import com.slightsite.siskapos.domain.CurrencyController;
 import com.slightsite.siskapos.domain.inventory.LineItem;
-import com.slightsite.siskapos.domain.inventory.Product;
 import com.slightsite.siskapos.domain.sale.Register;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements SwipeItemTouchHelper.SwipeHelperAdapter {
     private List<LineItem> items = new ArrayList<>();
+    private List<LineItem> items_swiped = new ArrayList<>();
 
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
@@ -43,7 +44,7 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.cart_total = cart_total;
     }
 
-    public class OriginalViewHolder extends RecyclerView.ViewHolder {
+    public class OriginalViewHolder extends RecyclerView.ViewHolder implements SwipeItemTouchHelper.TouchViewHolder {
         public ImageView image;
         public TextView title;
         public TextView price;
@@ -52,6 +53,8 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public View lyt_parent;
         public ImageButton add_qty;
         public ImageButton substract_qty;
+        public Button bt_undo;
+        public View lyt_undo;
 
         public OriginalViewHolder(View v) {
             super(v);
@@ -63,6 +66,18 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
             lyt_parent = (View) v.findViewById(R.id.lyt_parent);
             add_qty = (ImageButton) v.findViewById(R.id.add_qty);
             substract_qty = (ImageButton) v.findViewById(R.id.substract_qty);
+            bt_undo = (Button) v.findViewById(R.id.bt_undo);
+            lyt_undo = (View) v.findViewById(R.id.lyt_undo);
+        }
+
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(ctx.getResources().getColor(R.color.grey_5));
+        }
+
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
         }
     }
 
@@ -74,11 +89,14 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return vh;
     }
 
+    public OriginalViewHolder vwh;
+
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof OriginalViewHolder) {
             final OriginalViewHolder view = (OriginalViewHolder) holder;
+            vwh = (OriginalViewHolder) holder;
 
             final LineItem p = items.get(position);
             view.title.setText(p.getProduct().getName());
@@ -144,7 +162,41 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 }
             });
+
+            view.bt_undo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    items.get(position).swiped = false;
+                    items_swiped.remove(items.get(position));
+                    notifyItemChanged(position);
+                }
+            });
+
+            if (p.swiped) {
+                view.lyt_parent.setVisibility(View.GONE);
+            } else {
+                view.lyt_parent.setVisibility(View.VISIBLE);
+            }
         }
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                for (LineItem s : items_swiped) {
+                    int index_removed = items.indexOf(s);
+                    if (index_removed != -1) {
+                        items.remove(index_removed);
+                        notifyItemRemoved(index_removed);
+                    }
+                }
+                items_swiped.clear();
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
@@ -152,16 +204,46 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return items.size();
     }
 
+    @Override
+    public void onItemDismiss(final int position) {
+
+        // handle when double swipe
+        if (items.get(position).swiped) {
+            items_swiped.remove(items.get(position));
+            items.remove(position);
+            notifyItemRemoved(position);
+            return;
+        }
+
+        items.get(position).swiped = true;
+        items_swiped.add(items.get(position));
+        try {
+            final int pos = position;
+            final int swiped_key = items_swiped.indexOf(items.get(position));
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            if (items_swiped.contains(items.get(pos))) {
+                                items_swiped.remove(swiped_key);
+                                vwh.lyt_undo.setVisibility(View.GONE);
+
+                                register.removeItem(items.get(pos));
+                                cart_total.setText(CurrencyController.getInstance().moneyFormat(register.getTotal()));
+                            }
+                        }
+                    },
+                    3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        notifyItemChanged(position);
+    }
+
     private void updateQty(LineItem lineItem, int qty, Double price, OriginalViewHolder view) {
         lineItem.setQuantity(qty);
         Double grosir_price = lineItem.getProduct().getUnitPriceByQuantity(lineItem.getProduct().getId(), qty);
-        Log.e(getClass().getSimpleName(), "Product name : "+ lineItem.getProduct().getName());
-        Log.e(getClass().getSimpleName(), "Product id : "+ lineItem.getProduct().getId());
-        Log.e(getClass().getSimpleName(), "grosir_price : "+ grosir_price);
-        Log.e(getClass().getSimpleName(), "line id : "+ lineItem.getId());
-        //int saleId = register.getCurrentSale().getId();
+
         int saleId = lineItem.getId();
-        Log.e(getClass().getSimpleName(), "saleId : "+ saleId);
         if (grosir_price > 0) {
             register.updateItem(
                     saleId,

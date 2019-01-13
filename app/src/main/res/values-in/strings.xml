@@ -87,6 +87,9 @@
     <string name="title_transaction">Transaksi</string>
     <string name="title_reports">Laporan</string>
     <string name="title_update_cart">Ubah Item</string>
+    <string name="title_product">Produk</string>
+    <string name="title_customer">Pelanggan</string>
+    <string name="title_payment">Pembayaran</string>
 
     <string name="dashboard_income">Pendapatan</string>
     <string name="dashboard_transaction">Transaksi</string>

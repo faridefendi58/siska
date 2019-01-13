@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.slightsite.siskapos.R;
 import com.slightsite.siskapos.domain.CurrencyController;
 import com.slightsite.siskapos.domain.inventory.LineItem;
@@ -45,6 +46,7 @@ public class CartActivity extends AppCompatActivity {
 
     private LinearLayout cart_container;
     private RelativeLayout empty_cart_container;
+    private MaterialRippleLayout checkout_btn_container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,16 @@ public class CartActivity extends AppCompatActivity {
 
         cart_container = findViewById(R.id.cart_container);
         empty_cart_container = (RelativeLayout) findViewById(R.id.empty_cart_container);
+
+        checkout_btn_container = (MaterialRippleLayout) findViewById(R.id.checkout_btn_container);
+        checkout_btn_container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CheckoutActivity.class);
+                finish();
+                startActivity(intent);
+            }
+        });
 
         update();
     }

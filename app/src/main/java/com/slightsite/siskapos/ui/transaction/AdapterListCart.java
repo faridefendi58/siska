@@ -89,14 +89,15 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return vh;
     }
 
-    public OriginalViewHolder vwh;
+    private List<OriginalViewHolder> whs = new ArrayList<>();
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof OriginalViewHolder) {
             final OriginalViewHolder view = (OriginalViewHolder) holder;
-            vwh = (OriginalViewHolder) holder;
+            OriginalViewHolder vwh = (OriginalViewHolder) holder;
+            whs.add(position, vwh);
 
             final LineItem p = items.get(position);
             view.title.setText(p.getProduct().getName());
@@ -220,19 +221,22 @@ public class AdapterListCart extends RecyclerView.Adapter<RecyclerView.ViewHolde
         try {
             final int pos = position;
             final int swiped_key = items_swiped.indexOf(items.get(position));
+            Log.e(getClass().getSimpleName(), "pos : "+ pos);
+            Log.e(getClass().getSimpleName(), "swiped_key : "+ swiped_key);
+            Log.e(getClass().getSimpleName(), "items_swiped : "+ items_swiped.toString());
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
                             if (items_swiped.contains(items.get(pos))) {
-                                items_swiped.remove(swiped_key);
-                                vwh.lyt_undo.setVisibility(View.GONE);
-
+                                items_swiped.clear();
                                 register.removeItem(items.get(pos));
+                                notifyItemRemoved(position);
                                 cart_total.setText(CurrencyController.getInstance().moneyFormat(register.getTotal()));
                             }
                         }
                     },
                     3000);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

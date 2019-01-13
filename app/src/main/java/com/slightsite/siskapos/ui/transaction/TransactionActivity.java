@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.TranslateAnimation;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -265,12 +266,27 @@ public class TransactionActivity extends AppCompatActivity {
                     textCartItemCount.setVisibility(View.VISIBLE);
                 }
                 if (register.hasSale()) {
-                    bottom_cart.setVisibility(View.VISIBLE);
+                    slideDown(bottom_cart, 1000);
+                    //bottom_cart.setVisibility(View.VISIBLE);
+                    //bottom_cart.animate().translationY(0);
+
                     cart_subtotal.setText("Subtotal "+ CurrencyController.getInstance().moneyFormat(register.getTotal()));
                     tot_cart_item.setText(String.valueOf(Math.min(mCartItemCount, 99)));
                 }
             }
         }
+    }
+
+    public void slideDown(View view, int duration){
+        view.setVisibility(View.VISIBLE);
+        TranslateAnimation animate = new TranslateAnimation(
+                0,                 // fromXDelta
+                0,                 // toXDelta
+                view.getHeight() + 100,  // fromYDelta
+                0);                // toYDelta
+        animate.setDuration(duration);
+        animate.setFillAfter(true);
+        view.startAnimation(animate);
     }
 }
 

@@ -75,7 +75,7 @@
             <ImageView
                 android:layout_width="@dimen/spacing_mlarge"
                 android:layout_height="@dimen/spacing_mlarge"
-                android:tint="@color/red_300"
+                android:tint="@color/blue_600"
                 app:srcCompat="@drawable/ic_shopping_cart" />
 
         </LinearLayout>
@@ -124,8 +124,8 @@
                 <ImageView
                     android:layout_width="@dimen/spacing_mlarge"
                     android:layout_height="@dimen/spacing_mlarge"
-                    android:tint="@color/red_300"
-                    app:srcCompat="@drawable/no_image" />
+                    android:tint="@color/blue_600"
+                    app:srcCompat="@drawable/ic_person_pin_black_24dp" />
 
             </LinearLayout>
 
@@ -137,18 +137,24 @@
 
                 <EditText
                     style="@style/EditText.Flat.Grey.Small"
+                    android:inputType="textAutoComplete"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_xlarge"
                     android:background="@drawable/edit_text_round_bg_outline"
+                    android:drawableEnd="@drawable/ic_person_grey"
+                    android:drawableRight="@drawable/ic_person_grey"
                     android:hint="Name"
                     android:minHeight="@dimen/spacing_xmlarge" />
 
                 <EditText
                     style="@style/EditText.Flat.Grey.Small"
+                    android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_xlarge"
                     android:layout_marginTop="@dimen/spacing_middle"
                     android:background="@drawable/edit_text_round_bg_outline"
+                    android:drawableEnd="@drawable/ic_phone_grey_24dp"
+                    android:drawableRight="@drawable/ic_phone_grey_24dp"
                     android:hint="Phone"
                     android:minHeight="@dimen/spacing_xmlarge" />
 
@@ -158,61 +164,21 @@
                     android:layout_height="@dimen/spacing_xlarge"
                     android:layout_marginTop="@dimen/spacing_middle"
                     android:background="@drawable/edit_text_round_bg_outline"
+                    android:drawableEnd="@drawable/ic_place_grey_24dp"
+                    android:drawableRight="@drawable/ic_place_grey_24dp"
                     android:hint="Address"
                     android:minHeight="@dimen/spacing_xmlarge" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_middle"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        style="@style/EditText.Flat.Grey.Small"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_xlarge"
-                        android:layout_weight="1"
-                        android:background="@drawable/edit_text_round_bg_outline"
-                        android:drawableEnd="@drawable/ic_expand_arrow"
-                        android:drawableRight="@drawable/ic_expand_arrow"
-                        android:hint="Country"
-                        android:minHeight="@dimen/spacing_xmlarge" />
-
-                    <View
-                        android:layout_width="@dimen/spacing_middle"
-                        android:layout_height="0dp" />
-
-                    <EditText
-                        style="@style/EditText.Flat.Grey.Small"
-                        android:layout_width="0dp"
-                        android:layout_height="@dimen/spacing_xlarge"
-                        android:layout_weight="1"
-                        android:background="@drawable/edit_text_round_bg_outline"
-                        android:hint="ZIP Code"
-                        android:minHeight="@dimen/spacing_xmlarge" />
-
-                </LinearLayout>
-
                 <EditText
                     style="@style/EditText.Flat.Grey.Small"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_xlarge"
+                    android:inputType="textEmailAddress"
                     android:layout_marginTop="@dimen/spacing_middle"
                     android:background="@drawable/edit_text_round_bg_outline"
-                    android:drawableEnd="@drawable/ic_expand_arrow"
-                    android:drawableRight="@drawable/ic_expand_arrow"
-                    android:hint="City"
-                    android:minHeight="@dimen/spacing_xmlarge" />
-
-                <EditText
-                    style="@style/EditText.Flat.Grey.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_xlarge"
-                    android:layout_marginTop="@dimen/spacing_middle"
-                    android:background="@drawable/edit_text_round_bg_outline"
-                    android:drawableEnd="@drawable/ic_expand_arrow"
-                    android:drawableRight="@drawable/ic_expand_arrow"
-                    android:hint="State / Province"
+                    android:drawableEnd="@drawable/ic_email_grey_24dp"
+                    android:drawableRight="@drawable/ic_email_grey_24dp"
+                    android:hint="Email"
                     android:minHeight="@dimen/spacing_xmlarge" />
 
             </LinearLayout>
@@ -246,78 +212,166 @@
                 <ImageView
                     android:layout_width="@dimen/spacing_mlarge"
                     android:layout_height="@dimen/spacing_mlarge"
-                    android:tint="@color/red_300"
+                    android:tint="@color/blue_600"
                     app:srcCompat="@drawable/ic_monetization_on" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_middle" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="@dimen/spacing_large">
+                android:paddingHorizontal="@dimen/spacing_middle">
 
-                <EditText
-                    style="@style/EditText.Flat.Grey.Small"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_xlarge"
-                    android:background="@drawable/edit_text_round_bg_outline"
-                    android:hint="Card Type"
-                    android:minHeight="@dimen/spacing_xmlarge" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/spacing_small"
+                    android:paddingHorizontal="@dimen/spacing_medium"
+                    android:weightSum="2">
 
-                <EditText
-                    style="@style/EditText.Flat.Grey.Small"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_xlarge"
-                    android:layout_marginTop="@dimen/spacing_middle"
-                    android:background="@drawable/edit_text_round_bg_outline"
-                    android:drawableEnd="@drawable/ic_person_grey"
-                    android:drawableRight="@drawable/ic_person_grey"
-                    android:hint="Name on Card"
-                    android:minHeight="@dimen/spacing_xmlarge" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sub-total"
+                        />
 
-                <EditText
-                    style="@style/EditText.Flat.Grey.Small"
+                    <TextView
+                        android:id="@+id/sub_total"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="100.000"
+                        android:textAlignment="textEnd"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/spacing_xlarge"
-                    android:layout_marginTop="@dimen/spacing_middle"
-                    android:background="@drawable/edit_text_round_bg_outline"
-                    android:drawableEnd="@drawable/ic_credit_card_grey"
-                    android:drawableRight="@drawable/ic_credit_card_grey"
-                    android:hint="Card Number"
-                    android:minHeight="@dimen/spacing_xmlarge" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/spacing_small"
+                    android:paddingHorizontal="@dimen/spacing_medium"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/product_discount"
+                        />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/spacing_small"
+                    android:paddingHorizontal="@dimen/spacing_medium"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/total"
+                        />
+
+                    <View
+                        android:layout_width="@dimen/spacing_small"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/total"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="100.000"
+                        android:textColor="@color/light_green_600"
+                        android:textAlignment="textEnd"
+                        />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_middle"
+                    android:paddingVertical="@dimen/spacing_small"
+                    android:paddingHorizontal="@dimen/spacing_medium"
                     android:orientation="horizontal">
 
-                    <EditText
-                        style="@style/EditText.Flat.Grey.Small"
+                    <TextView
                         android:layout_width="0dp"
                         android:layout_height="@dimen/spacing_xlarge"
                         android:layout_weight="1"
-                        android:background="@drawable/edit_text_round_bg_outline"
-                        android:drawableEnd="@drawable/ic_event_grey"
-                        android:drawableRight="@drawable/ic_event_grey"
-                        android:hint="Expired Date" />
+                        android:text="Collected Cash" />
 
                     <View
                         android:layout_width="@dimen/spacing_middle"
                         android:layout_height="0dp" />
 
                     <EditText
+                        android:id="@+id/colected_cash"
                         style="@style/EditText.Flat.Grey.Small"
+                        android:inputType="number"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/spacing_xlarge"
                         android:layout_weight="1"
                         android:background="@drawable/edit_text_round_bg_outline"
-                        android:hint="CVV" />
+                        android:hint="0.00"
+                        android:textAlignment="textEnd"/>
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingVertical="@dimen/spacing_small"
+                    android:paddingHorizontal="@dimen/spacing_medium"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/change"
+                        />
+
+                    <View
+                        android:layout_width="@dimen/spacing_small"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/cash_change"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@color/light_green_600"
+                        android:textAlignment="textEnd"
+                        />
+                </LinearLayout>
+
             </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="@dimen/spacing_large" />
 
         </LinearLayout>
 
@@ -330,7 +384,7 @@
             style="@style/RippleStyleWhite"
             android:layout_width="match_parent"
             android:layout_height="@dimen/spacing_xxlarge"
-            android:background="@color/red_300">
+            android:background="@color/blue_600">
 
             <LinearLayout
                 android:layout_width="wrap_content"

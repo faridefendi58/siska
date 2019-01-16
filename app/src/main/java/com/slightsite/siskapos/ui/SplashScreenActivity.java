@@ -3,9 +3,12 @@ package com.slightsite.siskapos.ui;
 import java.util.Locale;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.slightsite.siskapos.R;
 import com.slightsite.siskapos.domain.CurrencyController;
@@ -46,7 +50,7 @@ import com.slightsite.siskapos.technicalservices.sale.SaleDaoAndroid;
  */
 public class SplashScreenActivity extends Activity {
 
-	public static final String POS_VERSION = "Siska POS 1.0";
+	public static final String POS_VERSION = "Siska POS 2.0";
 	private static final long SPLASH_TIMEOUT = 2000;
 	private Button goButton;
 	private boolean gone;
@@ -108,11 +112,35 @@ public class SplashScreenActivity extends Activity {
 	 * Go.
 	 */
 	private void go() {
-		gone = true;
-		Intent newActivity = new Intent(SplashScreenActivity.this,
-				LoginActivity.class);
-		startActivity(newActivity);
-		SplashScreenActivity.this.finish();	
+		BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+		if (mBluetoothAdapter == null) {
+			// Device does not support Bluetooth
+		} else {
+			if (!mBluetoothAdapter.isEnabled()) {
+				// Bluetooth is not enable :)
+				Toast.makeText(getBaseContext(), "Bluetooth is disable.\n\tPlease turning on before launch this app...", Toast.LENGTH_SHORT).show();
+				new CountDownTimer(2000, 200)
+				{
+
+					public void onTick(long millisUntilFinished) {
+					}
+					public void onFinish() {
+						gone = true;
+						Intent newActivity = new Intent(SplashScreenActivity.this,
+								LoginActivity.class);
+						startActivity(newActivity);
+						SplashScreenActivity.this.finish();
+					}
+				}.start();//End CountDownTimer
+			} else {
+				gone = true;
+				Intent newActivity = new Intent(SplashScreenActivity.this,
+						LoginActivity.class);
+				startActivity(newActivity);
+				SplashScreenActivity.this.finish();
+			}
+		}
+
 	}
 
 	private ProgressBar progressBar;

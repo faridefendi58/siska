@@ -21,6 +21,7 @@ import android.util.Log;
 public class AndroidDatabase extends SQLiteOpenHelper implements Database {
 
 	private static final int DATABASE_VERSION = 3;
+	private static final int DEMO = 1;
 
 	/**
 	 * Constructs a new AndroidDatabase.
@@ -165,7 +166,22 @@ public class AndroidDatabase extends SQLiteOpenHelper implements Database {
 		Log.d("CREATE DATABASE", "Create " + DatabaseContents.TABLE_ADMIN + " Successfully.");
 		
 		Log.d("CREATE DATABASE", "Create Database Successfully.");
-
+		// start of demo data
+		if (DEMO > 0) {
+			database.execSQL("INSERT INTO " + DatabaseContents.TABLE_PRODUCT_CATALOG + " (" +
+					"_id, name, barcode, unit_price, status)\n" +
+					"VALUES ('1', 'Jarum Super 16', '001', 24000.0, 'ACTIVE'), " +
+					"('2', 'Aqua 300ml', '002', 3000.0, 'ACTIVE'), ('3', 'Indomie Ayam Bawang', '003', 2900.0, 'ACTIVE');");
+			database.execSQL("INSERT INTO " + DatabaseContents.TABLE_STOCK + " (" +
+					"_id, product_id, quantity, cost, date_added)\n" +
+					"VALUES ('1', 1, 100, 24000.0, '" + datetime + "'), " +
+					"('2', 2, 100, 3000.0, '" + datetime + "'), ('3', 3, 100, 2900.0, '" + datetime + "');");
+			database.execSQL("INSERT INTO " + DatabaseContents.TABLE_STOCK_SUM + " (" +
+					"_id, quantity)\n" +
+					"VALUES ('1', 100), " +
+					"('2', 100), ('3', 100);");
+		}
+		// end of demo data
 	}
 
 	@Override

@@ -136,6 +136,7 @@ public class PrinterActivity extends AppCompatActivity {
                 beginListenForData();
             } else {
                 value += "No Devices found";
+                bluetoothDeviceList = new ArrayList<>();
                 Toast.makeText(this, value, Toast.LENGTH_LONG).show();
                 return;
             }

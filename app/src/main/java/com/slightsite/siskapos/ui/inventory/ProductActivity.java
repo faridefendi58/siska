@@ -164,11 +164,12 @@ public class ProductActivity extends AppCompatActivity {
             finish();
             startActivity(intent);
         } else if (item.getItemId() == R.id.action_add) {
-
+            Toast.makeText(getApplicationContext(), "Under Construction.", Toast.LENGTH_SHORT).show();
         } else if (item.getItemId() == R.id.action_syncron) {
-            intent = new Intent(getApplicationContext(), ProductServerActivity.class);
+            /*intent = new Intent(getApplicationContext(), ProductServerActivity.class);
             finish();
-            startActivity(intent);
+            startActivity(intent);*/
+            Toast.makeText(getApplicationContext(), "Under Construction.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), item.getTitle(), Toast.LENGTH_SHORT).show();
         }

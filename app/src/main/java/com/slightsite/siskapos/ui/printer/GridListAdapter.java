@@ -29,7 +29,11 @@ public class GridListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return arrayList.size();
+        int size = 0;
+        if (arrayList != null) {
+            size = arrayList.size();
+        }
+        return size;
     }
 
     @Override

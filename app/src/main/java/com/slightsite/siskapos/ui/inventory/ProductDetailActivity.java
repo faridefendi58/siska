@@ -8,6 +8,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -42,6 +43,7 @@ import com.slightsite.siskapos.domain.inventory.Stock;
 import com.slightsite.siskapos.technicalservices.NoDaoSetException;
 import com.slightsite.siskapos.ui.component.UpdatableFragment;
 import com.slightsite.siskapos.ui.sale.SaleFragment;
+import com.slightsite.siskapos.ui.transaction.TransactionActivity;
 
 /**
  * UI for shows the datails of each Product.
@@ -93,8 +95,8 @@ public class ProductDetailActivity extends Activity {
 		if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			ActionBar actionBar = getActionBar();
 			actionBar.setDisplayHomeAsUpEnabled(true);
-			actionBar.setTitle(res.getString(R.string.product_detail));
-			actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1ABC9C")));
+			actionBar.setTitle(product.getName());
+			actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1976D2")));
 		}
 	}
 	
@@ -103,7 +105,6 @@ public class ProductDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		res = getResources();
-		initiateActionBar();
 		
 		try {
 			stock = Inventory.getInstance().getStock();
@@ -114,6 +115,8 @@ public class ProductDetailActivity extends Activity {
 
 		id = getIntent().getStringExtra("id");
 		product = productCatalog.getProductById(Integer.parseInt(id));
+
+		initiateActionBar();
 
 		initUI(savedInstanceState);
 		remember = new String[3];
@@ -134,7 +137,7 @@ public class ProductDetailActivity extends Activity {
 		nameBox = (EditText) findViewById(R.id.nameBox);
 		priceBox = (EditText) findViewById(R.id.priceBox);
 		barcodeBox = (EditText) findViewById(R.id.barcodeBox);
-		stockSumBox = (TextView) findViewById(R.id.stockSumBox);
+		//stockSumBox = (TextView) findViewById(R.id.stockSumBox);
 		submitEditButton = (Button) findViewById(R.id.submitEditButton);
 		submitEditButton.setVisibility(View.INVISIBLE);
 		cancelEditButton = (Button) findViewById(R.id.cancelEditButton);
@@ -197,7 +200,8 @@ public class ProductDetailActivity extends Activity {
 		}
 
 		SimpleAdapter sAdap = new SimpleAdapter(ProductDetailActivity.this, stockList,
-				R.layout.listview_stock, new String[] { "dateAdded",
+				R.layout.listview_stock, new String[] {
+				"dateAdded",
 				"cost", "quantity" }, new int[] {
 				R.id.dateAdded, R.id.cost, R.id.quantity, });
 		stockListView.setAdapter(sAdap);
@@ -228,16 +232,18 @@ public class ProductDetailActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		int productId = Integer.parseInt(id);
-		stockSumBox.setText(stock.getStockSumById(productId)+"");
+		//stockSumBox.setText(stock.getStockSumById(productId)+"");
 		showList(stock.getProductLotByProductId(productId));
 		showListDiscount(stock.getProductDiscountByProductId(productId));
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = new Intent(ProductDetailActivity.this, ProductActivity.class);
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			this.finish();
+			startActivity(intent);
 			return true;
 		case R.id.action_edit:
 			edit();
@@ -253,13 +259,13 @@ public class ProductDetailActivity extends Activity {
 	private void submitEdit() {
 		nameBox.setFocusable(false);
 		nameBox.setFocusableInTouchMode(false);
-		nameBox.setBackgroundColor(Color.parseColor("#87CEEB"));
+		//nameBox.setBackgroundColor(Color.parseColor("#87CEEB"));
 		priceBox.setFocusable(false);
 		priceBox.setFocusableInTouchMode(false);
-		priceBox.setBackgroundColor(Color.parseColor("#87CEEB"));
+		//priceBox.setBackgroundColor(Color.parseColor("#87CEEB"));
 		barcodeBox.setFocusable(false);
 		barcodeBox.setFocusableInTouchMode(false);
-		barcodeBox.setBackgroundColor(Color.parseColor("#87CEEB"));
+		//barcodeBox.setBackgroundColor(Color.parseColor("#87CEEB"));
 		product.setName(nameBox.getText().toString());
 		if(priceBox.getText().toString().equals(""))
 			priceBox.setText("0.0");
@@ -277,13 +283,13 @@ public class ProductDetailActivity extends Activity {
 	private void cancelEdit() {
 		nameBox.setFocusable(false);
 		nameBox.setFocusableInTouchMode(false);
-		nameBox.setBackgroundColor(Color.parseColor("#87CEEB"));
+		//nameBox.setBackgroundColor(Color.parseColor("#87CEEB"));
 		priceBox.setFocusable(false);
 		priceBox.setFocusableInTouchMode(false);
-		priceBox.setBackgroundColor(Color.parseColor("#87CEEB"));
+		//priceBox.setBackgroundColor(Color.parseColor("#87CEEB"));
 		barcodeBox.setFocusable(false);
 		barcodeBox.setFocusableInTouchMode(false);
-		barcodeBox.setBackgroundColor(Color.parseColor("#87CEEB"));
+		//barcodeBox.setBackgroundColor(Color.parseColor("#87CEEB"));
 		submitEditButton.setVisibility(View.INVISIBLE);
 		cancelEditButton.setVisibility(View.INVISIBLE);
 		nameBox.setText(remember[0]);
@@ -298,13 +304,13 @@ public class ProductDetailActivity extends Activity {
 	private void edit() {
 		nameBox.setFocusable(true);
 		nameBox.setFocusableInTouchMode(true);
-		nameBox.setBackgroundColor(Color.parseColor("#FFBB33"));
+		//nameBox.setBackgroundColor(Color.parseColor("#FFBB33"));
 		priceBox.setFocusable(true);
 		priceBox.setFocusableInTouchMode(true);
-		priceBox.setBackgroundColor(Color.parseColor("#FFBB33"));
+		//priceBox.setBackgroundColor(Color.parseColor("#FFBB33"));
 		barcodeBox.setFocusable(true);
 		barcodeBox.setFocusableInTouchMode(true);
-		barcodeBox.setBackgroundColor(Color.parseColor("#FFBB33"));	
+		//barcodeBox.setBackgroundColor(Color.parseColor("#FFBB33"));
 		remember[0] = nameBox.getText().toString();
 		remember[1] = priceBox.getText().toString();
 		remember[2] = barcodeBox.getText().toString();

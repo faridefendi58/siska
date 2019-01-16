@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.TranslateAnimation;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,8 +38,7 @@ import com.slightsite.siskapos.domain.sale.Register;
 import com.slightsite.siskapos.technicalservices.NoDaoSetException;
 import com.slightsite.siskapos.domain.transaction.ProductCategory;
 import com.slightsite.siskapos.ui.LoginActivity;
-import com.slightsite.siskapos.ui.MainActivity;
-import com.slightsite.siskapos.ui.component.ButtonAdapter;
+import com.slightsite.siskapos.ui.inventory.ProductActivity;
 import com.slightsite.siskapos.ui.params.ParamsActivity;
 import com.slightsite.siskapos.ui.profile.ProfileActivity;
 
@@ -218,13 +216,17 @@ public class TransactionActivity extends AppCompatActivity {
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(final MenuItem item) {
-                /*Toast.makeText(getApplicationContext(), item.getTitle() + " Selected", Toast.LENGTH_SHORT).show();
-                actionBar.setTitle(item.getTitle());*/
                 Intent intent;
 
                 switch (item.getItemId()) {
                     case R.id.nav_home: {
                         intent = new Intent(getApplicationContext(), TransactionActivity.class);
+                        finish();
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.nav_product: {
+                        intent = new Intent(getApplicationContext(), ProductActivity.class);
                         finish();
                         startActivity(intent);
                         break;

@@ -11,117 +11,78 @@
         android:padding="10dp"
         android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/nameBox"
+        <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#87CEEB"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center"
-            android:inputType="textNoSuggestions"
-            android:padding="10dip"
-            android:text="@string/name"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            android:useDefaultMargins="true"
+            android:alignmentMode="alignBounds"
+            android:columnOrderPreserved="true"
+            android:columnCount="2"
+            android:padding="10dp">
 
-        <TextView
-            android:id="@+id/quantityLabel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="2dip"
-            android:text="@string/quantity"
-            android:textSize="16sp" />
+            <TextView
+                android:text="@string/name"
+                android:layout_gravity="left"
+                />
 
-        <TextView
-            android:id="@+id/stockSumBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#DDEEFF"
-            android:gravity="right"
-            android:padding="2dip"
-            android:textSize="16sp" />
+            <EditText
+                android:ems="10"
+                android:id="@+id/nameBox"
+                android:inputType="textPersonName"
+                android:singleLine="true"
+                android:textColor="@color/colorBlack"
+                />
 
-    <!--
-                <TextView
-                    android:id="@+id/profitLabel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="2dip"
-                    android:text="Profit per unit"
-                    android:textSize="20sp" />
+            <TextView
+                android:id="@+id/barcodeLabel"
+                android:text="@string/barcode"
+                android:layout_column="0"
+                android:layout_gravity="left"
+                />
 
-                <TextView
-                    android:id="@+id/profitBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#DDEEFF"
-                    android:gravity="right"
-                    android:padding="2dip"
-                    android:textSize="25sp" />
-    -->
+            <EditText
+                android:ems="10"
+                android:id="@+id/barcodeBox"
+                android:inputType="text"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/colorBlack"
+                />
 
-    <TextView
-        android:id="@+id/priceLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="2dip"
-        android:text="@string/unit_price"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/priceLabel"
+                android:text="@string/unit_price"
+                android:layout_column="0"
+                android:layout_gravity="left"
+                />
 
-    <EditText
-        android:id="@+id/priceBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#87CEEB"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:gravity="right"
-        android:inputType="number"
-        android:padding="2dip"
-        android:textSize="16sp" />
+            <EditText
+                android:ems="10"
+                android:id="@+id/priceBox"
+                android:inputType="number"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/colorBlack"
+                />
 
-    <TextView
-        android:id="@+id/barcodeLabel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="2dip"
-        android:text="@string/barcode"
-        android:textSize="16sp" />
+            <Space
+                android:layout_row="5"
+                android:layout_column="0"
+                android:layout_columnSpan="1"
+                android:layout_gravity="fill"
+                />
 
-    <EditText
-        android:id="@+id/barcodeBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#87CEEB"
-        android:focusable="false"
-        android:focusableInTouchMode="false"
-        android:gravity="right"
-        android:inputType="number"
-        android:padding="2dip"
-        android:textSize="16sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:weightSum="1">
-
-        <Button
-            android:id="@+id/openEditButton"
-            style="@style/ButtonText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/btnSuccess"
-            android:text="@string/edit"
-            android:drawableLeft="@drawable/ic_edit_white_24dp"
-            android:layout_gravity="center"
-            android:layout_weight="0.5"
-            android:paddingHorizontal="10dp"
-            />
-
-    </LinearLayout>
+            <Button
+                android:id="@+id/openEditButton"
+                android:text="@string/change_data"
+                android:layout_row="6"
+                android:layout_column="1"
+                android:background="@color/btnInfo"
+                android:textColor="@color/colorWhite"
+                android:paddingHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                />
+        </GridLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -130,23 +91,19 @@
 
         <Button
             android:id="@+id/cancelEditButton"
-            style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:background="@color/btnDanger"
-            android:drawableLeft="@drawable/ic_cancel_white_24dp"
+            android:background="@color/btnWarning"
             android:paddingHorizontal="10dp"
             android:text="@string/cancel" />
 
         <Button
             android:id="@+id/submitEditButton"
-            style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:background="@color/btnInfo"
-            android:drawableLeft="@drawable/ic_save_white_24dp"
             android:paddingHorizontal="10dp"
             android:text="@string/save" />
     </LinearLayout>

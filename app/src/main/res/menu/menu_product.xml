@@ -1,0 +1,23 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white_24dp"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:iconTint="@color/colorWhite"
+        android:title="Search Product"/>
+
+    <item
+        android:id="@+id/action_add"
+        android:title="@string/add_new_product">
+    </item>
+
+    <item
+        android:id="@+id/action_syncron"
+        android:title="@string/sync_product">
+    </item>
+
+</menu>

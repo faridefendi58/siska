@@ -40,6 +40,7 @@ import com.slightsite.siskapos.domain.params.ParamService;
 import com.slightsite.siskapos.technicalservices.NoDaoSetException;
 import com.slightsite.siskapos.technicalservices.Server;
 import com.slightsite.siskapos.ui.MainActivity;
+import com.slightsite.siskapos.ui.transaction.TransactionActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,8 +84,8 @@ public class ProductServerActivity extends Activity {
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(res.getString(R.string.action_syncronize));
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1ABC9C")));
-            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#e2e3e5")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1976D2")));
+            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#1565C0")));
         }
     }
 
@@ -120,7 +121,7 @@ public class ProductServerActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(ProductServerActivity.this, MainActivity.class);
+                Intent intent = new Intent(ProductServerActivity.this, ProductActivity.class);
                 finish();
                 startActivity(intent);
                 return true;

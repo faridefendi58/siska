@@ -35,13 +35,14 @@
     <string name="cash">Cash</string>
     <string name="transfer">Transfer Bank</string>
     <string name="change">Change</string>
+    <string name="change_data">Change Data</string>
     <string name="hint_search">Enter name or barcode</string>
     <string name="hint_search_customer">Enter name or email</string>
     <string name="hint_cash">Enter cash here</string>
     <string name="hint_transfer">Enter transfer nominal here</string>
     <string name="add_new_product">Add New Product</string>
-    <string name="add_stock">Add A Product Lot</string>
-    <string name="add_discount">Add A Product Discount</string>
+    <string name="add_stock">Add Stock</string>
+    <string name="add_discount">Add Discount</string>
     <string name="add_new_customer">Add New Customer</string>
     <string name="previous">&lt;</string>
     <string name="next">></string>

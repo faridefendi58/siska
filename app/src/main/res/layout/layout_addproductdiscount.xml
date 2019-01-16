@@ -57,24 +57,24 @@
 
         <Button
             android:id="@+id/clearButton"
-            style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:background="@color/btnDanger"
+            android:background="@color/orange_300"
             android:text="@string/cancel"
             android:textSize="20sp"
+            android:textColor="@color/colorWhite"
             android:paddingHorizontal="10dp"/>
 
         <Button
             android:id="@+id/confirmButton"
-            style="@style/ButtonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:background="@color/btnInfo"
+            android:background="@color/blue_600"
             android:text="@string/action_submit"
             android:textSize="20sp"
+            android:textColor="@color/colorWhite"
             android:paddingHorizontal="10dp"/>
 
     </LinearLayout>

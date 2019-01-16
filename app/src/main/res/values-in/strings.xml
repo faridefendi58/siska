@@ -35,6 +35,7 @@
     <string name="cash">Tunai</string>
     <string name="transfer">Bank Transfer</string>
     <string name="change">Kembali</string>
+    <string name="change_data">Ubah Data</string>
     <string name="hint_search">Masukkan nama atau barcode</string>
     <string name="hint_search_customer">Masukkan nama atau email</string>
     <string name="hint_cash">Uang tunai yang diterima</string>

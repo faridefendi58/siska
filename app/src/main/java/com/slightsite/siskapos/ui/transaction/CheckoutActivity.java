@@ -18,11 +18,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.balysv.materialripple.MaterialRippleLayout;
 import com.slightsite.siskapos.R;
 import com.slightsite.siskapos.domain.CurrencyController;
+import com.slightsite.siskapos.domain.DateTimeStrategy;
+import com.slightsite.siskapos.domain.customer.Customer;
+import com.slightsite.siskapos.domain.customer.CustomerCatalog;
+import com.slightsite.siskapos.domain.customer.CustomerService;
 import com.slightsite.siskapos.domain.inventory.LineItem;
 import com.slightsite.siskapos.domain.sale.Register;
 import com.slightsite.siskapos.technicalservices.NoDaoSetException;
+import com.slightsite.siskapos.ui.printer.PrinterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +43,15 @@ public class CheckoutActivity extends AppCompatActivity {
     private TextView cash_change;
     private TextView sub_total;
     private TextView total;
+    private MaterialRippleLayout lyt_submit;
+
+    private EditText customer_name;
+    private EditText customer_phone;
+    private EditText customer_email;
+    private EditText customer_address;
+
+    private CustomerCatalog customerCatalog;
+    private Customer customer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +61,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
         try {
             register = Register.getInstance();
+            customerCatalog = CustomerService.getInstance().getCustomerCatalog();
         } catch (NoDaoSetException e) {
             e.printStackTrace();
         }
@@ -103,6 +119,19 @@ public class CheckoutActivity extends AppCompatActivity {
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
+
+        customer_name = (EditText) findViewById(R.id.customer_name);
+        customer_phone = (EditText) findViewById(R.id.customer_phone);
+        customer_email = (EditText) findViewById(R.id.customer_email);
+        customer_address = (EditText) findViewById(R.id.customer_address);
+
+        lyt_submit = (MaterialRippleLayout) findViewById(R.id.lyt_submit);
+        lyt_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitOrder();
+            }
+        });
     }
 
     private void initToolbar() {
@@ -151,6 +180,40 @@ public class CheckoutActivity extends AppCompatActivity {
         //set data and list adapter
         mAdapter = new AdapterListCartCheckout(this, list, register);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    private void submitOrder() {
+        int cash = 0;
+        try {
+            cash = Integer.parseInt(colected_cash.getText().toString());
+        } catch (Exception e) { e.printStackTrace(); }
+        String c_name = customer_name.getText().toString();
+        String c_email = customer_email.getText().toString();
+        String c_phone = customer_phone.getText().toString();
+        String c_address = customer_address.getText().toString();
+        if (c_email.length() > 0) {
+            customer = customerCatalog.getCustomerByEmail(c_email);
+            //Toast.makeText(getApplicationContext(), "Customer name is required.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (customer != null) {
+            register.setCustomer(customer);
+        }
+
+        if (cash > 0) {
+            register.endSale(DateTimeStrategy.getCurrentTime());
+            print();
+        } else {
+            Toast.makeText(getApplicationContext(), "Please fill the colected cash.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void print(){
+        int saleId = register.getCurrentSale().getId();
+
+        Intent newActivity = new Intent(this, PrinterActivity.class);
+        newActivity.putExtra("saleId", saleId);
+        startActivity(newActivity);
     }
 }
 

@@ -3,6 +3,7 @@ package com.slightsite.siskapos.ui.params;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -25,6 +26,7 @@ import com.slightsite.siskapos.domain.params.ParamCatalog;
 import com.slightsite.siskapos.domain.params.ParamService;
 import com.slightsite.siskapos.domain.params.Params;
 import com.slightsite.siskapos.technicalservices.NoDaoSetException;
+import com.slightsite.siskapos.ui.transaction.TransactionActivity;
 
 public class ParamsActivity extends Activity {
     private ParamCatalog paramCatalog;
@@ -80,8 +82,8 @@ public class ParamsActivity extends Activity {
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle(getResources().getString(R.string.params));
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1ABC9C")));
-            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#e2e3e5")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1976D2")));
+            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#1565C0")));
         }
     }
 
@@ -92,9 +94,11 @@ public class ParamsActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent(ParamsActivity.this, TransactionActivity.class);
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -38,6 +38,7 @@ import com.slightsite.siskapos.domain.transaction.ProductCategory;
 import com.slightsite.siskapos.ui.LoginActivity;
 import com.slightsite.siskapos.ui.MainActivity;
 import com.slightsite.siskapos.ui.component.ButtonAdapter;
+import com.slightsite.siskapos.ui.params.ParamsActivity;
 import com.slightsite.siskapos.ui.profile.ProfileActivity;
 
 import java.util.ArrayList;
@@ -204,7 +205,7 @@ public class TransactionActivity extends AppCompatActivity {
                         break;
                     }
                     case R.id.nav_invoice: {
-                        intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent = new Intent(getApplicationContext(), TransactionActivity.class);
                         finish();
                         startActivity(intent);
                         break;
@@ -216,6 +217,12 @@ public class TransactionActivity extends AppCompatActivity {
                     }
                     case R.id.nav_profile: {
                         intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                        finish();
+                        startActivity(intent);
+                        break;
+                    }
+                    case R.id.nav_settings: {
+                        intent = new Intent(getApplicationContext(), ParamsActivity.class);
                         finish();
                         startActivity(intent);
                         break;

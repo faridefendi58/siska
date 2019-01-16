@@ -9,8 +9,12 @@
             android:icon="@drawable/ic_home"
             android:title="@string/title_home" />
         <item
+            android:id="@+id/nav_product"
+            android:icon="@drawable/ic_product_white_24dp"
+            android:title="@string/title_product" />
+        <item
             android:id="@+id/nav_invoice"
-            android:icon="@drawable/ic_money_white_24dp"
+            android:icon="@drawable/ic_receipt_white_24dp"
             android:title="@string/invoice" />
         <item
             android:id="@+id/nav_hold"

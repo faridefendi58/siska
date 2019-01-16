@@ -114,7 +114,7 @@ public class CartActivity extends AppCompatActivity {
         mAdapter.setOnItemClickListener(new AdapterListCart.OnItemClickListener() {
             @Override
             public void onItemClick(View view, LineItem obj, int position) {
-                Snackbar.make(parent_view, obj.getProduct().getName() + " choosen.", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(parent_view, "Please swipe to remove "+ obj.getProduct().getName() + ".", Snackbar.LENGTH_SHORT).show();
             }
         });
 

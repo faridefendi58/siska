@@ -53,7 +53,7 @@ public class PrinterActivity extends AppCompatActivity {
     int readBufferPosition;
     volatile boolean stopWorker;
     String value = "";
-    String bluetoothDeviceName = ""; //"58Printer";
+    String bluetoothDeviceName = "58Printer";
     ArrayList<String> bluetoothDeviceList;
     Map<String, String> printerConfigs = new HashMap<String, String>();
     private ParamCatalog paramCatalog;
@@ -377,7 +377,7 @@ public class PrinterActivity extends AppCompatActivity {
         if (paramCatalog.getParamByName("store_name") != null)
             header += String.format("%s%n", centerString(char_length, paramCatalog.getParamByName("store_name").getValue()));
         else
-            header += String.format("%s%n", centerString(char_length, "UCOK DURIAN"));
+            header += String.format("%s%n", centerString(char_length, "SISTEM KASIR 2.0"));
 
         if (paramCatalog.getParamByName("store_address") != null)
             header += String.format("%s%n", centerString(char_length, paramCatalog.getParamByName("store_address").getValue()));

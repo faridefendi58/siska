@@ -136,6 +136,7 @@
                 android:padding="@dimen/spacing_large">
 
                 <EditText
+                    android:id="@+id/customer_name"
                     style="@style/EditText.Flat.Grey.Small"
                     android:inputType="textAutoComplete"
                     android:layout_width="match_parent"
@@ -147,6 +148,7 @@
                     android:minHeight="@dimen/spacing_xmlarge" />
 
                 <EditText
+                    android:id="@+id/customer_phone"
                     style="@style/EditText.Flat.Grey.Small"
                     android:inputType="phone"
                     android:layout_width="match_parent"
@@ -159,6 +161,7 @@
                     android:minHeight="@dimen/spacing_xmlarge" />
 
                 <EditText
+                    android:id="@+id/customer_address"
                     style="@style/EditText.Flat.Grey.Small"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_xlarge"
@@ -170,6 +173,7 @@
                     android:minHeight="@dimen/spacing_xmlarge" />
 
                 <EditText
+                    android:id="@+id/customer_email"
                     style="@style/EditText.Flat.Grey.Small"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/spacing_xlarge"
@@ -380,7 +384,7 @@
             android:layout_height="@dimen/spacing_large" />
 
         <com.balysv.materialripple.MaterialRippleLayout
-            android:id="@+id/lyt_next"
+            android:id="@+id/lyt_submit"
             style="@style/RippleStyleWhite"
             android:layout_width="match_parent"
             android:layout_height="@dimen/spacing_xxlarge"

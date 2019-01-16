@@ -27,6 +27,7 @@ import com.slightsite.siskapos.R;
 import com.slightsite.siskapos.domain.ProfileController;
 import com.slightsite.siskapos.ui.LoginActivity;
 import com.slightsite.siskapos.ui.MainActivity;
+import com.slightsite.siskapos.ui.transaction.TransactionActivity;
 
 public class ProfileActivity extends Activity {
 
@@ -47,8 +48,8 @@ public class ProfileActivity extends Activity {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1ABC9C")));
-            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#e2e3e5")));
+            actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1976D2")));
+            actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#1565C0")));
         }
     }
 
@@ -80,7 +81,7 @@ public class ProfileActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+        Intent intent = new Intent(ProfileActivity.this, TransactionActivity.class);
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();

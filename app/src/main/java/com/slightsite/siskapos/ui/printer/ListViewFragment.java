@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.slightsite.siskapos.R;
 import com.slightsite.siskapos.ui.MainActivity;
+import com.slightsite.siskapos.ui.transaction.TransactionActivity;
 
 import java.util.ArrayList;
 
@@ -62,7 +63,7 @@ public class ListViewFragment extends Fragment {
         view.findViewById(R.id.home_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getActivity(), TransactionActivity.class);
                 getActivity().startActivity(intent);
             }
         });

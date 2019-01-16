@@ -1,5 +1,6 @@
 package com.slightsite.siskapos.ui.transaction;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -28,6 +30,7 @@ import com.balysv.materialripple.MaterialRippleLayout;
 import com.slightsite.siskapos.R;
 import com.slightsite.siskapos.domain.CurrencyController;
 import com.slightsite.siskapos.domain.inventory.Inventory;
+import com.slightsite.siskapos.domain.inventory.LineItem;
 import com.slightsite.siskapos.domain.inventory.Product;
 import com.slightsite.siskapos.domain.inventory.ProductCatalog;
 import com.slightsite.siskapos.domain.params.ParamCatalog;
@@ -160,6 +163,28 @@ public class TransactionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 onOptionsItemSelected(menuItem);
+            }
+        });
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if( ! searchView.isIconified()) {
+                    searchView.setIconified(true);
+                }
+                searchItem.collapseActionView();
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String s) {
+                if (mAdapter != null){
+                    mAdapter.getFilter().filter(s);
+                }
+
+                return false;
             }
         });
 

@@ -3,6 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white_24dp"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:iconTint="@color/colorWhite"
+        android:title="Search Product"/>
+
+    <item
         android:id="@+id/action_cart"
         android:icon="@drawable/ic_shopping_cart"
         android:title="Cart"
